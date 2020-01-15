@@ -37,7 +37,7 @@ function createTimeOutEvent(employee, timeStamp) {
 function hoursWorkedOnDate(employee, givenDate) {
   let inTime = employee.timeInEvents.find(it => it.date === givenDate);
   let outTime = employee.timeOutEvents.find(ot => ot.date === givenDate);
-  return (outTime.hour - inTime.hour)/100;
+  return (outTime.hour - inTime.hour)/100; // hours in 24h clock, strip off zeros.
 }
 
 function wagesEarnedOnDate(employee, givenDate) {
@@ -50,7 +50,14 @@ function allWagesFor(employee) {
   return wages;
 }
 
+function findEmployeeByFirstName(employees, employeeFirstName) {
+  return employees.find(employee => employee.firstName === employeeFirstName);
+}
 
-
+function calculatePayroll(employeeRecords) {
+  return employeeRecords.reduce((initialAmt, employee) => {
+    return initialAmt + allWagesFor(employee);
+  }, 0);
+}
 
 
